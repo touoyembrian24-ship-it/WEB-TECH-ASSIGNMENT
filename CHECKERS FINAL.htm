@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Custom Checkers Board</title>
+
+    <!-- ========================================== -->
+    <!-- 1. CSS STYLESHEET (Separated from Markup) -->
+    <!-- ========================================== -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2c3e50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #ecf0f1;
+        }
+
+        h1 {
+            margin-bottom: 5px;
+        }
+
+        p {
+            margin-top: 0;
+            color: #bdc3c7;
+        }
+
+        /* Board Container using standard Grid */
+        .board {
+            display: grid;
+            grid-template-columns: repeat(5, 70px);
+            grid-template-rows: repeat(10, 70px);
+            border: 6px solid #4a3b32;
+            border-radius: 4px;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+            background-color: #b58863;
+        }
+
+        /* Board Squares */
+        .cell {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Alternating Grid Base Colors */
+        .row-even .cell:nth-child(odd) { background-color: #f0d9b5; }
+        .row-even .cell:nth-child(even) { background-color: #b58863; }
+        .row-odd .cell:nth-child(odd) { background-color: #b58863; }
+        .row-odd .cell:nth-child(even) { background-color: #f0d9b5; }
+
+        /* Column 1 and Column 4 Special Matching Rule */
+        .board .cell:nth-child(5n+1),
+        .board .cell:nth-child(5n+4) {
+            background-color: #4a7a96 !important;
+        }
+
+        /* Checkers Pieces (Players) */
+        .piece {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.6), 0 4px 6px rgba(0,0,0,0.4);
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            position: relative;
+            box-sizing: border-box;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .piece:hover {
+            transform: scale(1.05);
+        }
+
+        /* Classic Checker Ridges inside piece */
+        .piece::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            right: 6px;
+            bottom: 6px;
+            border-radius: 50%;
+            border: 2px dashed rgba(255, 255, 255, 0.35);
+        }
+
+        /* Player Red (1) */
+        .player-red {
+            background-color: #e74c3c;
+        }
+
+        /* Player Black (2) */
+        .player-black {
+            background-color: #2c3e50;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Checkers Board (10x5)</h1>
+    <p>Column 1 &amp; Column 4 share a custom matching background.</p>
+
+    <!-- ========================================== -->
+    <!-- 2. HTML MARKUP / BOARD CONFIGURATION       -->
+    <!-- EDIT THE VALUE INSIDE .cell TO CHANGE STATE-->
+    <!-- Leave empty, or add:                       -->
+    <!--   Red Piece:   <div class="piece player-red"></div> -->
+    <!--   Black Piece: <div class="piece player-black"></div> -->
+    <!-- ========================================== -->
+    <div class="board">
+        <!-- Row 1 -->
+        <div class="row-even"><div class="cell"><div class="piece player-red"></div></div></div>
+        <div class="row-even"><div class="cell"></div></div>
+        <div class="row-even"><div class="cell"><div class="piece player-red"></div></div></div>
+        <div class="row-even"><div class="cell"></div></div>
+        <div class="row-even"><div class="cell"><div class="piece player-red"></div></div></div>
+
+        <!-- Row 2 -->
+        <div class="row-odd"><div class="cell"></div></div>
+        <div class="row-odd"><div class="cell"><div class="piece player-red"></div></div></div>
+        <div class="row-odd"><div class="cell"></div></div>
+        <div class="row-odd"><div class="cell"><div class="piece player-red"></div></div></div>
+        <div class="row-odd"><div class="cell"></div></div>
+
+        <!-- Row 3 -->
+        <div class="row-even"><div class="cell"><div class="piece player-red"></div></div></div>
+        <div class="row-even"><div class="cell"></div></div>
+        <div class="row-even"><div class="cell"></div></div>
+        <div class="row-even"><div class="cell"></div></div>
+        <div class="row-even"><div class="cell"></div></div>
+
+        <!-- Row 4 -->
+        <div class="row-odd"><div class="cell"></div></div>
+        <div class="row-odd"><div class="cell"></div></div>
+        <div class="row-odd"><div class="cell"></div></div>
+        <div class="row-odd"><div class="cell"></div></div>
+        <div class="row-odd"><div class="cell"></div></div>
+
+        <!-- Row 5 -->
+        <div class="row-even"><div class="cell"></div></div>
+        <div class="row-even"><div class="cell"></div></div>
+        <div class="row-even"><div class="cell"></div></div>
+        <div class="row-even"><div class="cell"></div></div>
+        <div class="row-even"><div class="cell"></div></div>
+
+        <!-- Row 6 -->
+        <div class="row-odd"><div class="cell"></div></div>
+        <div class="row-odd"><div class="cell"></div></div>
+        <div class="row-odd"><div class="cell"></div></div>
+        <div class="row-odd"><div class="cell"></div></div>
+        <div class="row-odd"><div class="cell"></div></div>
+
+        <!-- Row 7 -->
+        <div class="row-even"><div class="cell"></div></div>
+        <div class="row-even"><div class="cell"></div></div>
+        <div class="row-even"><div class="cell"></div></div>
+        <div class="row-even"><div class="cell"></div></div>
+        <div class="row-even"><div class="cell"><div class="piece player-black"></div></div></div>
+
+        <!-- Row 8 -->
+        <div class="row-odd"><div class="cell"></div></div>
+        <div class="row-odd"><div class="cell"><div class="piece player-black"></div></div></div>
+        <div class="row-odd"><div class="cell"></div></div>
+        <div class="row-odd"><div class="cell"><div class="piece player-black"></div></div></div>
+        <div class="row-odd"><div class="cell"></div></div>
+
+        <!-- Row 9 -->
+        <div class="row-even"><div class="cell"><div class="piece player-black"></div></div></div>
+        <div class="row-even"><div class="cell"></div></div>
+        <div class="row-even"><div class="cell"><div class="piece player-black"></div></div></div>
+        <div class="row-even"><div class="cell"></div></div>
+        <div class="row-even"><div class="cell"></div></div>
+
+        <!-- Row 10 -->
+        <div class="row-odd"><div class="cell"></div></div>
+        <div class="row-odd"><div class="cell"><div class="piece player-black"></div></div></div>
+        <div class="row-odd"><div class="cell"></div></div>
+        <div class="row-odd"><div class="cell"><div class="piece player-black"></div></div></div>
+        <div class="row-odd"><div class="cell"></div></div>
+    </div>
+
+</body>
+</html>
